@@ -1,0 +1,1142 @@
+/* ========================================
+   CSS Variables - Light Theme (Default)
+   ======================================== */
+:root, #pichat-chatbot-root {
+  /* Spacing Scale - Use these for all spacing needs */
+  --pichat-space-1: 4px; /* Tight spacing */
+  --pichat-space-2: 8px; /* Small spacing */
+  --pichat-space-3: 12px; /* Medium spacing */
+  --pichat-space-4: 16px; /* Large spacing */
+  --pichat-space-5: 20px; /* Extra large spacing */
+  --pichat-space-6: 24px; /* Maximum spacing */
+
+  /* Icon Sizes - 3 levels for simplicity */
+  --pichat-icon-sm: 16px; /* Message actions, small buttons */
+  --pichat-icon-md: 24px; /* Default icon size */
+  --pichat-icon-lg: 32px; /* Navigation, headers */
+
+  /* Component Sizes */
+  --pichat-avatar-size: 32px;
+  --pichat-send-button-size: 36px;
+
+  /* Typography */
+  --pichat-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Colors - Background/Foreground Pattern */
+  --pichat-background: #ffffff;
+  --pichat-foreground: #1a1a1a;
+  --pichat-muted: #6b7280;
+  --pichat-muted-background: #f8f9fa;
+  --pichat-border: #e5e7eb;
+
+  /* Semantic Colors */
+  --pichat-primary: #2563eb;
+  --pichat-destructive: #ef4444;
+  --pichat-accent: #f97316;
+
+  /* Interactive States */
+  --pichat-hover: #f3f4f6;
+  --pichat-disabled: #9ca3af;
+
+  /* Avatar Colors */
+  --pichat-avatar-user-bg: #000000;
+  --pichat-avatar-ai-bg: #000000;
+
+  /* Shadows */
+  --pichat-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --pichat-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  /* Border Radius */
+  --pichat-radius-sm: 4px;
+  --pichat-radius-md: 8px;
+  --pichat-radius-full: 9999px;
+
+  /* Popup Position */
+  --popup-top: auto;
+  --popup-bottom: 20px;
+  --popup-left: auto;
+  --popup-right: 20px;
+}
+
+/* ========================================
+   CSS Variables - Dark Theme
+   ======================================== */
+[data-theme='dark'] {
+  /* Colors - Background/Foreground Pattern */
+  --pichat-background: #1a1a1a;
+  --pichat-foreground: #ffffff;
+  --pichat-muted: #9ca3af;
+  --pichat-muted-background: #2a2a2a;
+  --pichat-border: #374151;
+
+  /* Semantic Colors */
+  --pichat-primary: #60a5fa;
+  --pichat-destructive: #dc2626;
+  --pichat-accent: #ea580c;
+
+  /* Interactive States */
+  --pichat-hover: #374151;
+  --pichat-disabled: #6b7280;
+}
+
+/* ========================================
+   Global Reset & Base Styles
+   ======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Use border-box for all elements */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ========================================
+   Main Chat Container
+   ======================================== */
+.pichat-chat-container {
+  font-family: var(--pichat-font-family);
+  background-color: var(--pichat-background);
+  color: var(--pichat-foreground);
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  max-width: 800px; /* Maximum width for readability */
+  margin: 0 auto; /* Center horizontally */
+}
+
+/* Popup constraints */
+.pichat-popup {
+  font-family: var(--pichat-font-family);
+  background-color: var(--pichat-background);
+  color: var(--pichat-foreground);
+  line-height: 1.5;
+  position: fixed;
+  z-index: 1000;
+  top: var(--popup-top);
+  bottom: var(--popup-bottom);
+  left: var(--popup-left);
+  right: var(--popup-right);
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  width: 400px;
+  border-radius: var(--pichat-radius-md);
+  overflow: hidden;
+  box-shadow: var(--pichat-shadow-md);
+}
+
+.pichat-popup.pichat-popup__bottom-popup.pichat-popup__hidden {
+  bottom: -650px;
+}
+.pichat-popup.pichat-popup__top-popup.pichat-popup__hidden {
+  top: -650px;
+}
+.pichat-popup.pichat-popup__left-popup.pichat-popup__hidden {
+  left: -450px;
+}
+.pichat-popup.pichat-popup__right-popup.pichat-popup__hidden {
+  right: -450px;
+}
+
+.pichat-popup-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.pichat-popup-content {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Allow flex item to shrink below content size */
+}
+
+/* ========================================
+   Header Component
+   ======================================== */
+.pichat-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between back, title, close */
+  padding: var(--pichat-space-3) var(--pichat-space-4);
+  background: var(--pichat-background);
+  border-bottom: 1px solid var(--pichat-border);
+}
+
+.pichat-title {
+  font-size: 16px;
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+}
+
+.pichat-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--pichat-space-1);
+  border-radius: var(--pichat-radius-full);
+  color: var(--pichat-foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.pichat-icon-button:hover {
+  background-color: var(--pichat-hover);
+}
+
+/* ========================================
+   Icon System
+   ======================================== */
+/* Base icon styles */
+.pichat-icon {
+  width: var(--pichat-icon-sm);
+  height: var(--pichat-icon-sm);
+  display: block;
+}
+
+.pichat-icon::before {
+  content: '';
+  display: block;
+  width: inherit;
+  height: inherit;
+  background-color: var(--pichat-foreground);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+/* Navigation Icons - Base class for large navigation icons */
+.pichat-nav-icon::before {
+  content: '';
+  display: block;
+  width: var(--pichat-icon-md);
+  height: var(--pichat-icon-md);
+  background-color: var(--pichat-foreground);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+.pichat-icon-back::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-close::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+/* Action Icons - Base class for small action icons */
+.pichat-action-icon {
+  width: var(--pichat-icon-sm);
+  height: var(--pichat-icon-sm);
+}
+
+.pichat-action-icon::before {
+  content: '';
+  display: block;
+  width: var(--pichat-icon-sm);
+  height: var(--pichat-icon-sm);
+  background-color: white;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+.pichat-icon-send::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-microphone::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M192 0C139 0 96 43 96 96l0 160c0 53 43 96 96 96s96-43 96-96l0-160c0-53-43-96-96-96zM64 216c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40c0 89.1 66.2 162.7 152 174.4l0 33.6-48 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l72 0 72 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-48 0 0-33.6c85.8-11.7 152-85.3 152-174.4l0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40c0 70.7-57.3 128-128 128s-128-57.3-128-128l0-40z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-stop::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+/* Message Action Icons - Base class for message-level action icons */
+.pichat-message-action-icon {
+  width: var(--pichat-icon-sm);
+  height: var(--pichat-icon-sm);
+  display: inline-block;
+}
+
+.pichat-message-action-icon::before {
+  content: '';
+  display: block;
+  width: var(--pichat-icon-sm);
+  height: var(--pichat-icon-sm);
+  background-color: var(--pichat-foreground);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+[data-theme='dark'] .pichat-message-action-icon::before {
+  background-color: #ffffff;
+}
+
+.pichat-icon-copy::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M384 336l-192 0c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l140.1 0L400 115.9 400 320c0 8.8-7.2 16-16 16zM192 384l192 0c35.3 0 64-28.7 64-64l0-204.1c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1L192 0c-35.3 0-64 28.7-64 64l0 256c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l192 0c35.3 0 64-28.7 64-64l0-32-48 0 0 32c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l32 0 0-48-32 0z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-check::before {
+  background-color: #10b981;
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-thumbs-up::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M323.8 34.8c-38.2-10.9-78.1 11.2-89 49.4l-5.7 20c-3.7 13-10.4 25-19.5 35l-51.3 56.4c-8.9 9.8-8.2 25 1.6 33.9s25 8.2 33.9-1.6l51.3-56.4c14.1-15.5 24.4-34 30.1-54.1l5.7-20c3.6-12.7 16.9-20.1 29.7-16.5s20.1 16.9 16.5 29.7l-5.7 20c-5.7 19.9-14.7 38.7-26.6 55.5c-5.2 7.3-5.8 16.9-1.7 24.9s12.3 13 21.3 13L448 224c8.8 0 16 7.2 16 16c0 6.8-4.3 12.7-10.4 15c-7.4 2.8-13 9-14.9 16.7s.1 15.8 5.3 21.7c2.5 2.8 4 6.5 4 10.6c0 7.8-5.6 14.3-13 15.7c-8.2 1.6-15.1 7.3-18 15.2s-1.6 16.7 3.6 23.3c2.1 2.7 3.4 6.1 3.4 9.9c0 6.7-4.2 12.6-10.2 14.9c-11.5 4.5-17.7 16.9-14.4 28.8c.4 1.3 .6 2.8 .6 4.3c0 8.8-7.2 16-16 16l-97.5 0c-12.6 0-25-3.7-35.5-10.7l-61.7-41.1c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l61.7 41.1c18.4 12.3 40 18.8 62.1 18.8l97.5 0c34.7 0 62.9-27.6 64-62c14.6-11.7 24-29.7 24-50c0-4.5-.5-8.8-1.3-13c15.4-11.7 25.3-30.2 25.3-51c0-6.5-1-12.8-2.8-18.7C504.8 273.7 512 257.7 512 240c0-35.3-28.6-64-64-64l-92.3 0c4.7-10.4 8.7-21.2 11.8-32.2l5.7-20c10.9-38.2-11.2-78.1-49.4-89zM32 192c-17.7 0-32 14.3-32 32L0 448c0 17.7 14.3 32 32 32l64 0c17.7 0 32-14.3 32-32l0-224c0-17.7-14.3-32-32-32l-64 0z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-thumbs-down::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M323.8 477.2c-38.2 10.9-78.1-11.2-89-49.4l-5.7-20c-3.7-13-10.4-25-19.5-35l-51.3-56.4c-8.9-9.8-8.2-25 1.6-33.9s25-8.2 33.9 1.6l51.3 56.4c14.1 15.5 24.4 34 30.1 54.1l5.7 20c3.6 12.7 16.9 20.1 29.7 16.5s20.1-16.9 16.5-29.7l-5.7-20c-5.7-19.9-14.7-38.7-26.6-55.5c-5.2-7.3-5.8-16.9-1.7-24.9s12.3-13 21.3-13L448 288c8.8 0 16-7.2 16-16c0-6.8-4.3-12.7-10.4-15c-7.4-2.8-13-9-14.9-16.7s.1-15.8 5.3-21.7c2.5-2.8 4-6.5 4-10.6c0-7.8-5.6-14.3-13-15.7c-8.2-1.6-15.1-7.3-18-15.2s-1.6-16.7 3.6-23.3c2.1-2.7 3.4-6.1 3.4-9.9c0-6.7-4.2-12.6-10.2-14.9c-11.5-4.5-17.7-16.9-14.4-28.8c.4-1.3 .6-2.8 .6-4.3c0-8.8-7.2-16-16-16l-97.5 0c-12.6 0-25 3.7-35.5 10.7l-61.7 41.1c-11 7.4-25.9 4.4-33.3-6.7s-4.4-25.9 6.7-33.3l61.7-41.1c18.4-12.3 40-18.8 62.1-18.8L384 32c34.7 0 62.9 27.6 64 62c14.6 11.7 24 29.7 24 50c0 4.5-.5 8.8-1.3 13c15.4 11.7 25.3 30.2 25.3 51c0 6.5-1 12.8-2.8 18.7C504.8 238.3 512 254.3 512 272c0 35.3-28.6 64-64 64l-92.3 0c4.7 10.4 8.7 21.2 11.8 32.2l5.7 20c10.9 38.2-11.2 78.1-49.4 89zM32 384c-17.7 0-32-14.3-32-32L0 128c0-17.7 14.3-32 32-32l64 0c17.7 0 32 14.3 32 32l0 224c0 17.7-14.3 32-32 32l-64 0z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-plus::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-feedback::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M123.6 391.3c12.9-9.4 29.6-11.8 44.6-6.4c26.5 9.6 56.2 15.1 87.8 15.1c124.7 0 208-80.5 208-160s-83.3-160-208-160S48 160.5 48 240c0 32 12.4 62.8 35.7 89.2c8.6 9.7 12.8 22.5 11.8 35.5c-1.4 18.1-5.7 34.7-11.3 49.4c17-7.9 31.1-16.7 39.4-22.7zM21.2 431.9c1.8-2.7 3.5-5.4 5.1-8.1c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208s-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6c-15.1 6.6-32.3 12.6-50.1 16.1c-.8 .2-1.6 .3-2.4 .5c-4.4 .8-8.7 1.5-13.2 1.9c-.2 0-.5 .1-.7 .1c-5.1 .5-10.2 .8-15.3 .8c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4c4.1-4.2 7.8-8.7 11.3-13.5c1.7-2.3 3.3-4.6 4.8-6.9l.3-.5z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+/* Theme Icons - Base class for theme/app-level icons */
+.pichat-theme-icon::before {
+  content: '';
+  display: block;
+  width: var(--pichat-icon-md);
+  height: var(--pichat-icon-md);
+  background-color: var(--pichat-foreground);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+.pichat-icon-light-mode::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M375.7 19.7c-1.5-8-6.9-14.7-14.4-17.8s-16.1-2.2-22.8 2.4L256 61.1 173.5 4.2c-6.7-4.6-15.3-5.5-22.8-2.4s-12.9 9.8-14.4 17.8l-18.1 98.5L19.7 136.3c-8 1.5-14.7 6.9-17.8 14.4s-2.2 16.1 2.4 22.8L61.1 256 4.2 338.5c-4.6 6.7-5.5 15.3-2.4 22.8s9.8 13 17.8 14.4l98.5 18.1 18.1 98.5c1.5 8 6.9 14.7 14.4 17.8s16.1 2.2 22.8-2.4L256 450.9l82.5 56.9c6.7 4.6 15.3 5.5 22.8 2.4s12.9-9.8 14.4-17.8l18.1-98.5 98.5-18.1c8-1.5 14.7-6.9 17.8-14.4s2.2-16.1-2.4-22.8L450.9 256l56.9-82.5c4.6-6.7 5.5-15.3 2.4-22.8s-9.8-12.9-17.8-14.4l-98.5-18.1L375.7 19.7zM269.6 110l65.6-45.2 14.4 78.3c1.8 9.8 9.5 17.5 19.3 19.3l78.3 14.4L402 242.4c-5.7 8.2-5.7 19 0 27.2l45.2 65.6-78.3 14.4c-9.8 1.8-17.5 9.5-19.3 19.3l-14.4 78.3L269.6 402c-8.2-5.7-19-5.7-27.2 0l-65.6 45.2-14.4-78.3c-1.8-9.8-9.5-17.5-19.3-19.3L64.8 335.2 110 269.6c5.7-8.2 5.7-19 0-27.2L64.8 176.8l78.3-14.4c9.8-1.8 17.5-9.5 19.3-19.3l14.4-78.3L242.4 110c8.2 5.7 19 5.7 27.2 0zM256 368a112 112 0 1 0 0-224 112 112 0 1 0 0 224zM192 256a64 64 0 1 1 128 0 64 64 0 1 1 -128 0z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-dark-mode::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M144.7 98.7c-21 34.1-33.1 74.3-33.1 117.3c0 98 62.8 181.4 150.4 211.7c-12.4 2.8-25.3 4.3-38.6 4.3C126.6 432 48 353.3 48 256c0-68.9 39.4-128.4 96.8-157.3zm62.1-66C91.1 41.2 0 137.9 0 256C0 379.7 100 480 223.5 480c47.8 0 92-15 128.4-40.6c1.9-1.3 3.7-2.7 5.5-4c4.8-3.6 9.4-7.4 13.9-11.4c2.7-2.4 5.3-4.8 7.9-7.3c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-3.7 .6-7.4 1.2-11.1 1.6c-5 .5-10.1 .9-15.3 1c-1.2 0-2.5 0-3.7 0l-.3 0c-96.8-.2-175.2-78.9-175.2-176c0-54.8 24.9-103.7 64.1-136c1-.9 2.1-1.7 3.2-2.6c4-3.2 8.2-6.2 12.5-9c3.1-2 6.3-4 9.6-5.8c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-3.6-.3-7.1-.5-10.7-.6c-2.7-.1-5.5-.1-8.2-.1c-3.3 0-6.5 .1-9.8 .2c-2.3 .1-4.6 .2-6.9 .4z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-popup::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M88.2 309.1c9.8-18.3 6.8-40.8-7.5-55.8C59.4 230.9 48 204 48 176c0-63.5 63.8-128 160-128s160 64.5 160 128s-63.8 128-160 128c-13.1 0-25.8-1.3-37.8-3.6c-10.4-2-21.2-.6-30.7 4.2c-4.1 2.1-8.3 4.1-12.6 6c-16 7.2-32.9 13.5-49.9 18c2.8-4.6 5.4-9.1 7.9-13.6c1.1-1.9 2.2-3.9 3.2-5.9zM208 352c114.9 0 208-78.8 208-176S322.9 0 208 0S0 78.8 0 176c0 41.8 17.2 80.1 45.9 110.3c-.9 1.7-1.9 3.5-2.8 5.1c-10.3 18.4-22.3 36.5-36.6 52.1c-6.6 7-8.3 17.2-4.6 25.9C5.8 378.3 14.4 384 24 384c43 0 86.5-13.3 122.7-29.7c4.8-2.2 9.6-4.5 14.2-6.8c15.1 3 30.9 4.5 47.1 4.5zM432 480c16.2 0 31.9-1.6 47.1-4.5c4.6 2.3 9.4 4.6 14.2 6.8C529.5 498.7 573 512 616 512c9.6 0 18.2-5.7 22-14.5c3.8-8.8 2-19-4.6-25.9c-14.2-15.6-26.2-33.7-36.6-52.1c-.9-1.7-1.9-3.4-2.8-5.1C622.8 384.1 640 345.8 640 304c0-94.4-87.9-171.5-198.2-175.8c4.1 15.2 6.2 31.2 6.2 47.8l0 .6c87.2 6.7 144 67.5 144 127.4c0 28-11.4 54.9-32.7 77.2c-14.3 15-17.3 37.6-7.5 55.8c1.1 2 2.2 4 3.2 5.9c2.5 4.5 5.2 9 7.9 13.6c-17-4.5-33.9-10.7-49.9-18c-4.3-1.9-8.5-3.9-12.6-6c-9.5-4.8-20.3-6.2-30.7-4.2c-12.1 2.4-24.8 3.6-37.8 3.6c-61.7 0-110-26.5-136.8-62.3c-16 5.4-32.8 9.4-50 11.8C279 439.8 350 480 432 480z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-icon-info::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+/* Special Icons */
+.pichat-icon-assistant::before {
+  content: '';
+  display: block;
+  width: var(--pichat-icon-lg);
+  height: var(--pichat-icon-lg);
+  background-color: var(--pichat-avatar-ai-bg);
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 8 C34 20, 44 30, 56 32 C44 34, 34 44, 32 56 C30 44, 20 34, 8 32 C20 30, 30 20, 32 8Z"/><path d="M46 40 C47 44, 50 47, 54 48 C50 49, 47 52, 46 56 C45 52, 42 49, 38 48 C42 47, 45 44, 46 40Z"/></svg>');
+  mask-image: var(--mask);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-image: var(--mask);
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+/* Active state for thumbs icons - filled versions */
+.pichat-active.pichat-icon-thumbs-up::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2l144 0c26.5 0 48 21.5 48 48c0 18.5-10.5 34.6-25.9 42.6C497 275.4 504 288.9 504 304c0 23.4-16.8 42.9-38.9 47.1c4.4 7.3 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48l-97.5 0c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.4 160 358.3l0-38.3 0-48 0-24.9c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192l64 0c17.7 0 32 14.3 32 32l0 224c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32L0 224c0-17.7 14.3-32 32-32z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+.pichat-active.pichat-icon-thumbs-down::before {
+  --mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M313.4 479.1c26-5.2 42.9-30.5 37.7-56.5l-2.3-11.4c-5.3-26.7-15.1-52.1-28.8-75.2l144 0c26.5 0 48-21.5 48-48c0-18.5-10.5-34.6-25.9-42.6C497 236.6 504 223.1 504 208c0-23.4-16.8-42.9-38.9-47.1c4.4-7.3 6.9-15.8 6.9-24.9c0-21.3-13.9-39.4-33.1-45.6c.7-3.3 1.1-6.8 1.1-10.4c0-26.5-21.5-48-48-48l-97.5 0c-19 0-37.5 5.6-53.3 16.1L202.7 73.8C176 91.6 160 121.6 160 153.7l0 38.3 0 48 0 24.9c0 29.2 13.3 56.7 36 75l7.4 5.9c26.5 21.2 44.6 51 51.2 84.2l2.3 11.4c5.2 26 30.5 42.9 56.5 37.7zM32 384l64 0c17.7 0 32-14.3 32-32l0-224c0-17.7-14.3-32-32-32L32 96C14.3 96 0 110.3 0 128L0 352c0 17.7 14.3 32 32 32z"/></svg>');
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+}
+
+/* ========================================
+   Message List & Scrollable Area
+   ======================================== */
+.pichat-message-list-wrapper {
+  flex: 1; /* Take remaining space */
+  overflow-y: auto; /* Enable vertical scrolling */
+  min-height: 200px; /* Maintain minimum height to prevent collapse */
+  position: relative; /* For calculating offsets */
+  margin: var(--pichat-space-2) var(--pichat-space-2) var(--pichat-space-2) 0;
+}
+
+/* Default scrollbar styling */
+.pichat-message-list-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.pichat-message-list-wrapper::-webkit-scrollbar-track {
+  background: var(--pichat-scrollbar-track, transparent);
+  border-radius: 4px;
+}
+
+.pichat-message-list-wrapper::-webkit-scrollbar-thumb {
+  background: var(--pichat-scrollbar-thumb, var(--pichat-foreground));
+  border-radius: 4px;
+}
+
+.pichat-message-list-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--pichat-scrollbar-thumb-hover, var(--pichat-hover));
+}
+
+/* Dark mode scrollbar styling */
+[data-theme='dark'] .pichat-message-list-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+[data-theme='dark'] .pichat-message-list-wrapper::-webkit-scrollbar-track {
+  background: var(--pichat-muted-background);
+}
+
+[data-theme='dark'] .pichat-message-list-wrapper::-webkit-scrollbar-thumb {
+  background: var(--pichat-border);
+  border-radius: 4px;
+}
+
+[data-theme='dark'] .pichat-message-list-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--pichat-muted);
+}
+
+.pichat-message-list {
+  padding: var(--pichat-space-2) var(--pichat-space-2) var(--pichat-space-2) var(--pichat-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pichat-space-4);
+}
+
+.pichat-message-spacer {
+  flex-shrink: 0; /* Prevent shrinking */
+  transition: height 0.3s ease; /* Smooth height transitions */
+}
+
+.pichat-streaming-cursor {
+  display: inline-block;
+  animation: blink 1s infinite;
+  color: var(--pichat-foreground);
+  opacity: 0.7;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   Message Component
+   ======================================== */
+.pichat-message {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pichat-space-2);
+}
+
+.pichat-message-header {
+  display: flex;
+  align-items: center;
+  gap: var(--pichat-space-2);
+}
+
+.pichat-message-sender-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pichat-avatar {
+  width: var(--pichat-avatar-size);
+  height: var(--pichat-avatar-size);
+  border-radius: var(--pichat-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.pichat-avatar-user {
+  background-color: var(--pichat-avatar-user-bg);
+}
+
+.pichat-avatar-ai {
+  background-color: transparent;
+}
+
+.pichat-message-sender {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.pichat-message-status {
+  font-size: 12px;
+  color: var(--pichat-muted);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+}
+
+.pichat-status-dots {
+  display: inline-block;
+  width: 20px;
+}
+
+.pichat-status-dots::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    content: '';
+  }
+  40% {
+    content: '.';
+  }
+  60% {
+    content: '..';
+  }
+  80%,
+  100% {
+    content: '...';
+  }
+}
+
+.pichat-message-content {
+  margin-left: calc(var(--pichat-avatar-size) + var(--pichat-space-2));
+  color: var(--pichat-foreground);
+}
+
+.pichat-message-text {
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.pichat-message-text p {
+  margin: 0 0 12px 0;
+}
+
+.pichat-message-text p:last-child {
+  margin-bottom: 0;
+}
+
+.pichat-message-text h2,
+.pichat-message-text .md-h2 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin: 12px 0 8px 0;
+}
+
+.pichat-message-text h3,
+.pichat-message-text .md-h3 {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 10px 0 6px 0;
+}
+
+.pichat-message-text h4,
+.pichat-message-text .md-h4 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 8px 0 4px 0;
+}
+
+.pichat-message-text strong {
+  font-weight: 600;
+  color: var(--pichat-foreground);
+}
+
+.pichat-message-text em {
+  font-style: italic;
+}
+
+.pichat-message-text code {
+  background: var(--pichat-muted-background);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.pichat-message-text pre {
+  background: var(--pichat-muted-background);
+  padding: 12px;
+  border-radius: var(--pichat-radius-sm);
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.pichat-message-text pre code {
+  background: none;
+  padding: 0;
+}
+
+.pichat-message-text blockquote {
+  border-left: 3px solid var(--pichat-primary);
+  padding-left: 12px;
+  margin: 16px 0;
+  color: var(--pichat-muted);
+  font-style: italic;
+}
+
+.pichat-message-text ul,
+.pichat-message-text .md-list {
+  margin: 6px 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.pichat-message-text li {
+  margin: 2px 0;
+  line-height: 1.4;
+}
+
+.pichat-message-content p {
+  margin-bottom: 12px;
+}
+
+.pichat-message-links {
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--pichat-muted-background);
+  border-radius: var(--pichat-radius-md);
+}
+
+.pichat-message-links p {
+  font-size: 14px;
+  color: var(--pichat-muted);
+  margin-bottom: 8px;
+}
+
+.pichat-message-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.pichat-message-links li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.pichat-message-links li::before {
+  content: '•';
+  color: var(--pichat-primary);
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.pichat-message-links a {
+  color: var(--pichat-primary);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.pichat-message-links a:hover {
+  text-decoration: underline;
+}
+
+.pichat-link-note {
+  color: var(--pichat-muted);
+  font-size: 13px;
+}
+
+.pichat-message-buttons {
+  display: flex;
+  gap: var(--pichat-space-2);
+  margin-left: calc(var(--pichat-avatar-size) + var(--pichat-space-2));
+}
+
+.pichat-message-button {
+  height: var(--pichat-icon-lg);
+  width: var(--pichat-icon-lg);
+  justify-content: center;
+}
+
+/* Tooltip styles */
+.pichat-button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.pichat-tooltip {
+  position: absolute;
+  background: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  animation: pichat-tooltip-fade-in 0.2s ease-out;
+  z-index: 1000;
+}
+
+.pichat-tooltip-top {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pichat-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: #333;
+}
+
+@keyframes pichat-tooltip-fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.pichat-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--pichat-radius-sm);
+  color: var(--pichat-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.2s;
+}
+
+.pichat-button:hover {
+  background-color: var(--pichat-hover);
+}
+
+.pichat-button.pichat-active .pichat-message-action-icon::before {
+  background-color: var(--pichat-primary);
+}
+
+.pichat-button-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Chat-level buttons (not message-specific) */
+.pichat-chat-button.pichat-button {
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: var(--pichat-foreground);
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: var(--pichat-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pichat-chat-button.pichat-button:hover {
+  background-color: var(--pichat-hover);
+  text-decoration: none;
+}
+
+.pichat-chat-button.pichat-button:hover .pichat-button-label {
+  text-decoration: underline;
+}
+
+/* ========================================
+   Input Component
+   ======================================== */
+.pichat-input-container {
+  padding: var(--pichat-space-2) var(--pichat-space-4) 0 var(--pichat-space-4);
+  border-top: 1px solid var(--pichat-border);
+  background: var(--pichat-background);
+}
+
+.pichat-input-wrapper {
+  display: flex;
+  gap: var(--pichat-space-2);
+}
+
+.pichat-input {
+  flex: 1;
+  padding: var(--pichat-space-2) var(--pichat-space-3);
+  border: 1px solid var(--pichat-border);
+  border-radius: var(--pichat-radius-md);
+  background: var(--pichat-muted-background);
+  color: var(--pichat-foreground);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.pichat-input:focus {
+  border-color: var(--pichat-border);
+}
+
+.pichat-send-button {
+  width: var(--pichat-send-button-size);
+  height: var(--pichat-send-button-size);
+  padding: 0;
+  background-color: var(--pichat-primary);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.pichat-send-button:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.pichat-send-button:disabled {
+  background-color: var(--pichat-disabled);
+  cursor: not-allowed;
+}
+
+/* ========================================
+   Footer Component
+   ======================================== */
+.pichat-input-footer {
+  display: flex;
+  justify-content: space-between; /* Spread footer links */
+  align-items: center;
+}
+
+/* Footer button wrappers should not affect layout */
+.pichat-input-footer .pichat-button-wrapper {
+  display: inline-flex;
+}
+
+.pichat-link-button {
+  background: none;
+  border: none;
+  color: var(--pichat-muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pichat-link-button:hover {
+  color: var(--pichat-foreground);
+  text-decoration: underline;
+}
+
+/* ========================================
+   Popup Button Component
+   ======================================== */
+.pichat-popup-button {
+  position: fixed;
+  bottom: var(--popup-bottom);
+  right: var(--popup-right);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--pichat-background);
+  border-radius: var(--pichat-radius-md);
+  padding: var(--pichat-space-2);
+  box-shadow: var(--pichat-shadow-md);
+  z-index: 999;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pichat-popup-button-icon {
+  width: var(--pichat-icon-lg);
+  height: var(--pichat-icon-lg);
+  display: inline-block;
+}
+
+.pichat-popup-button-title {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pichat-popup-button-icon img {
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================================
+   Legal Disclaimer Component
+   ======================================== */
+.pichat-legal-disclaimer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--pichat-background);
+  opacity: 1;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: var(--pichat-space-6);
+}
+.pichat-legal-disclaimer__hidden {
+  display: none;
+}
+.pichat-legal-disclaimer-content {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.pichat-legal-disclaimer-text p:first-child {
+  margin-top: 0;
+}
+.pichat-legal-disclaimer-text p:last-child {
+  margin-bottom: 0;
+}
+
+.pichat-legal-disclaimer-text {
+  color: var(--pichat-foreground);
+}
+
+.pichat-legal-disclaimer-text ul {
+  padding-inline-start: 40px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  list-style-type: disc;
+}
+
+.pichat-legal-disclaimer-buttons {
+  margin-top: var(--pichat-space-6);
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+/* ========================================
+   Screen System (Generic)
+   ======================================== */
+.pichat-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--pichat-background);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pichat-screen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pichat-space-4) var(--pichat-space-5);
+  border-bottom: 1px solid var(--pichat-border);
+  flex-shrink: 0;
+}
+
+.pichat-screen-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--pichat-foreground);
+}
+
+.pichat-screen-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--pichat-space-4) var(--pichat-space-4) var(--pichat-space-4) var(--pichat-space-6);
+  margin: var(--pichat-space-2) var(--pichat-space-2) var(--pichat-space-2) 0;
+}
+
+/* Default scrollbar styling */
+.pichat-screen-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.pichat-screen-content::-webkit-scrollbar-track {
+  background: var(--pichat-scrollbar-track, transparent);
+  border-radius: 4px;
+}
+
+.pichat-screen-content::-webkit-scrollbar-thumb {
+  background: var(--pichat-scrollbar-thumb, var(--pichat-foreground));
+  border-radius: 4px;
+}
+
+.pichat-screen-content::-webkit-scrollbar-thumb:hover {
+  background: var(--pichat-scrollbar-thumb-hover, var(--pichat-hover));
+}
+
+.pichat-screen-text {
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--pichat-foreground);
+}
+
+.pichat-screen-text p {
+  margin: 0 0 1em 0;
+}
+
+.pichat-screen-text p:last-child {
+  margin-bottom: 0;
+}
+
+.pichat-screen-text ul {
+  padding-inline-start: 40px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  list-style-type: disc;
+}
+
+.pichat-screen-footer {
+  padding: var(--pichat-space-4) var(--pichat-space-5);
+  border-top: 1px solid var(--pichat-border);
+  flex-shrink: 0;
+}
+
+.pichat-screen-buttons {
+  display: flex;
+  gap: var(--pichat-space-3);
+  justify-content: flex-end;
+}
+
+.pichat-theme-picker {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--pichat-background);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 0 0 var(--pichat-radius-md) var(--pichat-radius-md);
+  box-shadow: var(--pichat-shadow-md);
+  z-index: 1000;
+}
+
+.pichat-theme-picker-button {
+  padding: 8px;
+  border-radius: var(--pichat-radius-md);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: var(--pichat-background);
+}
+.pichat-theme-picker-button:hover {
+  background-color: var(--pichat-hover);
+}
+
+.pichat-theme-picker-button-active {
+  background-color: var(--pichat-background);
+}
+
+/* ========================================
+   Mobile Responsive Styles
+   ======================================== */
+@media (max-width: 640px) {
+  .pichat-chat-container {
+    max-width: 100%; /* Full width on mobile */
+  }
+
+  .pichat-message-content {
+    margin-left: 0; /* Remove indent on mobile */
+  }
+
+  .pichat-message-buttons {
+    margin-left: 0; /* Remove indent on mobile */
+  }
+}

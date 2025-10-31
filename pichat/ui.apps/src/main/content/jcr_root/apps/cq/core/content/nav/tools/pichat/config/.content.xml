@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:description="Configure the chatbot themes, options, and settings"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Pichat Config"
+    href="/apps/pichat/components/config/content.html"
+    icon="gears"
+    id="pichat-config"
+    order="{Long}4000"/>

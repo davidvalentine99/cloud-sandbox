@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/conf/pichat" mode="merge"/>
+    <filter root="/content/pichat" mode="merge"/>
+    <filter root="/content/dam/pichat" mode="merge">
+        <exclude pattern="/content/dam/pichat(/.*)?"/>
+        <include pattern="/content/dam/pichat/jcr:content(/.*)?"/>
+    </filter>
+    <filter root="/content/dam/pichat/asset.jpg" mode="merge"/>
+    <filter root="/content/experience-fragments/pichat" mode="merge"/>
+</workspaceFilter>

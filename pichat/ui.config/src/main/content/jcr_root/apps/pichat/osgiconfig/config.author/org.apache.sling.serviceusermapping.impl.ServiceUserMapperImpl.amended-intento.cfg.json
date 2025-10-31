@@ -1,0 +1,4 @@
+{
+  "service.ranking:Integer": 100,
+  "user.mapping": ["aem-pichat.core:pichat-service=pichat-service"]
+}

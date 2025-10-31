@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "es6",
+        "baseUrl": "../ui.frontend",
+        "removeComments": true,
+        "allowJs": true,
+        "preserveConstEnums": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "moduleResolution": "node",
+
+        /* Preact Config */
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
+        "skipLibCheck": true,
+        "paths": {
+          "react": ["./node_modules/preact/compat/"],
+          "react-dom": ["./node_modules/preact/compat/"]
+        }
+    },
+    "include": [ "./src/**/*.ts", "node_modules/vite/client.d.ts", "**/*" ]
+}
